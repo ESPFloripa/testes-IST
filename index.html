@@ -6,6 +6,8 @@
     <title>Guia de Testagem: HIV, Sífilis e Hepatites - Florianópolis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -32,6 +34,9 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold">Como escolher o teste certo para HIV, Sífilis e Hepatites B e C</h1>
             <p class="mt-2 text-xl text-gray-200">Um guia prático para os profissionais de saúde da Atenção Primária</p>
+            <button id="openModalBtn" class="mt-4 flex items-center justify-center text-lg bg-white/20 backdrop-blur-sm py-2 px-4 rounded-full max-w-xs mx-auto hover:bg-white/30 transition-colors">
+                <i class="fas fa-graduation-cap mr-2"></i>Curso Livre
+            </button>
         </div>
     </header>
 
@@ -175,6 +180,23 @@
             </div>
         </div>
 
+        <!-- Curso Livre Section -->
+        <section id="curso-livre" class="bg-teal-50 border-t-4 border-teal-500 rounded-xl shadow-lg p-6 md:p-8 mt-8 text-center">
+            <h2 class="text-2xl font-bold text-teal-800 mb-4 flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                Participe do Curso Livre
+            </h2>
+            <p class="text-slate-600 mb-8 max-w-2xl mx-auto">Aprofunde seu conhecimento e obtenha a certificação. Siga os passos abaixo para se inscrever e realizar o teste de aproveitamento.</p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block">
+                    Inscrição para o curso livre
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScAS-ZoMBXvQ5WzfYwUtgDNTyDCa_A_V7C1rhHiGAOH4fhEFA/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block">
+                    Teste de aproveitamento
+                </a>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -187,7 +209,28 @@
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div id="courseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 md:p-8 relative">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold text-teal-900 mb-4">Instruções do Curso Livre</h3>
+            <div class="text-slate-700">
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Este Curso Livre é voltado para profissionais de saúde de nível superior e será certificado com a carga horária de 2 horas/aula.</li>
+                    <li>Você deve clicar no botão disponível no fim desta página (ou <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline font-semibold">aqui</a>) e preencher todos os campos para se inscrever no curso no mês corrente.</li>
+                    <li>Após a inscrição realizada, você tem até o último dia do mês para responder o teste de aproveitamento disponibilizado no botão no fim da página (não confundir com o Quiz!).</li>
+                    <li>Ao responder o teste de aproveitamento coloque o nome completo e CPF conforme você colocou no link de inscrição.</li>
+                    <li>A nota de corte para aprovação é de 80%.</li>
+                    <li>O teste de aproveitamento só permite uma resposta por participante, caso você não seja aprovado poderá repetir o curso no mês seguinte.</li>
+                    <li>O certificado será disponibilizado até o último dia útil do mês seguinte à finalização do curso.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
     <script>
+        // --- Quiz Logic ---
         const quizData = [
             {
                 question: "Qual é a primeira escolha de teste para o diagnóstico de HIV, Sífilis e Hepatites B e C na atenção primária?",
@@ -389,10 +432,28 @@
         restartBtn.addEventListener('click', startQuiz);
 
         startQuiz();
+
+        // --- Modal Logic ---
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const courseModal = document.getElementById('courseModal');
+
+        openModalBtn.addEventListener('click', () => {
+            courseModal.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            courseModal.classList.add('hidden');
+        });
+
+        // Close modal if user clicks outside of the content
+        courseModal.addEventListener('click', (e) => {
+            if (e.target === courseModal) {
+                courseModal.classList.add('hidden');
+            }
+        });
     </script>
 
 </body>
 </html>
-
-
 
