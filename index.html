@@ -68,8 +68,16 @@
         </div>
     </header>
 
+    <!-- Start Section -->
+    <div id="start-section" class="text-center container mx-auto p-4 sm:p-6 lg:p-8">
+        <p class="text-gray-600 font-semibold mb-4">Antes de iniciar o curso leia as instruções e faça a sua inscrição acima!</p>
+        <button id="start-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block text-lg">
+            Iniciar
+        </button>
+    </div>
+
     <!-- Main Content -->
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+    <main id="main-content" class="container mx-auto p-4 sm:p-6 lg:p-8 hidden">
 
         <!-- Quick Media Section -->
         <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
@@ -255,227 +263,240 @@
 
 
     <script>
-        // --- Quiz Logic ---
-        const quizData = [
-            {
-                question: "Qual é a primeira escolha de teste para o diagnóstico de HIV, Sífilis e Hepatites B e C na atenção primária?",
-                answers: [
-                    { text: "VDRL, ANTI-HIV-1 + HIV-2, HBsAg e Anti-HCV", correct: false },
-                    { text: "Testes Rápidos (TR)", correct: true },
-                    { text: "FTA-ABS, ANTI-HIV-1 + HIV-2, HBsAg e Anti-HBc ", correct: false },
-                    { text: "Hemograma completo", correct: false }
-                ],
-                feedback: "O Teste Rápido (TR) é sempre a primeira opção pela agilidade no diagnóstico e início do tratamento."
-            },
-            {
-                question: "Para um paciente sem histórico de sífilis com Teste Rápido reagente, qual o primeiro exame indicado para confirma o diagnóstico?",
-                answers: [
-                    { text: "VDRL", correct: true },
-                    { text: "FTA-ABS", correct: false },
-                    { text: "IFI", correct: false },
-                    { text: "Um segundo Teste Rápido", correct: false }
-                ],
-                feedback: "O VDRL é utilizado para confirmar o diagnóstico de sífilis após um Teste Rápido reagente em pacientes sem histórico."
-            },
-            {
-                question: "Qual exame é utilizado para monitorar a eficácia do tratamento da sífilis?",
-                answers: [
-                    { text: "Teste Rápido", correct: false },
-                    { text: "Hemograma", correct: false },
-                    { text: "VDRL", correct: true },
-                    { text: "Quimioluminescência", correct: false }
-                ],
-                feedback: "O VDRL é o exame de escolha para acompanhar a resposta ao tratamento da sífilis, observando a queda dos títulos."
-            },
-            {
-                question: "O exame ANTI-HIV-1 + HIV-2 é indicado principalmente quando:",
-                answers: [
-                    { text: "O exame de carva viral está elevado.", correct: false },
-                    { text: "É a primeira consulta do paciente.", correct: false },
-                    { text: "O Teste Rápido não está disponível ou tem resultados divergentes.", correct: true },
-                    { text: "Para monitorar o tratamento.", correct: false }
-                ],
-                feedback: "O exame laboratorial para HIV é uma exceção, usado quando o TR não é viável ou seus resultados são inconclusivos."
-            },
-             {
-                question: "Qual o fluxo de testagem para sífilis recomendado para gestantes?",
-                answers: [
-                    { text: "Apenas um VDRL no início do pré-natal.", correct: false },
-                    { text: "Teste Rápido no 1º e 3º trimestres.", correct: true },
-                    { text: "Apenas um Teste Rápido no parto.", correct: false },
-                    { text: "Não há necessidade de testagem específica.", correct: false }
-                ],
-                feedback: "Para gestantes, a recomendação é a realização do Teste Rápido no primeiro e terceiro trimestres do pré-natal."
-            },
-            {
-                question: "Um paciente já tratado para sífilis suspeita de reinfecção. Qual exame é o mais indicado para diferenciar da cicatriz sorológica?",
-                answers: [
-                    { text: "VDRL", correct: true },
-                    { text: "Teste Rápido", correct: false },
-                    { text: "FTA-ABS", correct: false },
-                    { text: "Quimioluminescencia", correct: false }
-                ],
-                feedback: "O VDRL é fundamental para avaliar uma possível reinfecção, pois o Teste Rápido (treponêmico) pode permanecer reagente por toda a vida."
-            },
-            {
-                question: "Qual a principal vantagem do Teste Rápido?",
-                answers: [
-                    { text: "É um teste único que detecta as 4 infecções.", correct: false },
-                    { text: "Pode ser feito em casa pelo paciente.", correct: false },
-                    { text: "Agilidade no resultado, permitindo ação imediata.", correct: true },
-                    { text: "É mais barato que o exame laboratorial.", correct: false }
-                ],
-                feedback: "A grande vantagem do TR é a rapidez do resultado, o que possibilita o aconselhamento e o início do tratamento na mesma consulta."
-            },
-            {
-                question: "Qual exame laboratorial é usado para diagnosticar Hepatite B quando o TR não é possível?",
-                answers: [
-                    { text: "Anti HBs", correct: false },
-                    { text: "HBsAg", correct: true },
-                    { text: "Anti-HCV", correct: false },
-                    { text: "ANTI-HBc", correct: false }
-                ],
-                feedback: "O HBsAg (Antígeno de superfície do vírus da Hepatite B) é o marcador sorológico utilizado para o diagnóstico da infecção."
-            },
-            {
-                question: "E para diagnosticar Hepatite C em laboratório, qual o exame inicial a ser solicitado?",
-                answers: [
-                    { text: "Anti-HCV", correct: true },
-                    { text: "HBsAg", correct: false },
-                    { text: "Quimioluminescencia", correct: false },
-                    { text: "Teste de Detecção de RNA do VHC", correct: false }
-                ],
-                feedback: "O Anti-HCV detecta os anticorpos contra o vírus da Hepatite C, sendo o exame de escolha para o diagnóstico laboratorial."
-            },
-             {
-                question: "Por que o teste treponêmico (TR) não é recomendado para diagnóstico em crianças expostas à sífilis com menos de 18 meses?",
-                answers: [
-                    { text: "O teste é caro e por isso pouco custo-efetivo.", correct: false },
-                    { text: "É muito doloroso para a criança.", correct: false },
-                    { text: "Pela persistência de anticorpos maternos.", correct: true },
-                    { text: "O resultado demora muito.", correct: false }
-                ],
-                feedback: "Os anticorpos da mãe passam para o bebê e podem ser detectados pelo teste, gerando um resultado falso-positivo. Por isso, usa-se o VDRL."
-            },
-        ];
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Start Button Logic ---
+            const startBtn = document.getElementById('start-btn');
+            const startSection = document.getElementById('start-section');
+            const mainContent = document.getElementById('main-content');
 
-        const questionContainer = document.getElementById('question-container');
-        const questionText = document.getElementById('question-text');
-        const answerButtons = document.getElementById('answer-buttons');
-        const feedbackContainer = document.getElementById('feedback-container');
-        const feedbackText = document.getElementById('feedback-text');
-        const controlsContainer = document.getElementById('controls-container');
-        const nextBtn = document.getElementById('next-btn');
-        const resultsContainer = document.getElementById('results-container');
-        const scoreText = document.getElementById('score-text');
-        const totalQuestionsText = document.getElementById('total-questions-text');
-        const restartBtn = document.getElementById('restart-btn');
-        const quizContent = document.getElementById('quiz-content');
-
-        let currentQuestionIndex = 0;
-        let score = 0;
-
-        function startQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            quizContent.classList.remove('hidden');
-            resultsContainer.classList.add('hidden');
-            nextBtn.classList.add('hidden');
-            showQuestion();
-        }
-
-        function showQuestion() {
-            resetState();
-            const currentQuestion = quizData[currentQuestionIndex];
-            questionText.innerText = `Pergunta ${currentQuestionIndex + 1}: ${currentQuestion.question}`;
-            
-            currentQuestion.answers.forEach(answer => {
-                const button = document.createElement('button');
-                button.innerText = answer.text;
-                button.classList.add('w-full', 'p-3', 'rounded-lg', 'border-2', 'border-gray-300', 'hover:bg-gray-100', 'transition', 'duration-200');
-                if (answer.correct) {
-                    button.dataset.correct = answer.correct;
-                }
-                button.addEventListener('click', selectAnswer);
-                answerButtons.appendChild(button);
-            });
-        }
-
-        function resetState() {
-            nextBtn.classList.add('hidden');
-            feedbackText.innerText = '';
-            feedbackContainer.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
-            feedbackContainer.classList.add('p-0');
-
-
-            while (answerButtons.firstChild) {
-                answerButtons.removeChild(answerButtons.firstChild);
-            }
-        }
-
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const correct = selectedBtn.dataset.correct === 'true';
-
-            if (correct) {
-                score++;
-                selectedBtn.classList.add('correct-answer');
-                feedbackText.innerText = "Resposta Correta! " + quizData[currentQuestionIndex].feedback;
-                feedbackContainer.classList.add('p-3', 'rounded-lg', 'bg-green-100', 'text-green-800');
-            } else {
-                selectedBtn.classList.add('wrong-answer');
-                feedbackText.innerText = "Resposta Incorreta. " + quizData[currentQuestionIndex].feedback;
-                feedbackContainer.classList.add('p-3', 'rounded-lg', 'bg-red-100', 'text-red-800');
-            }
-            
-            Array.from(answerButtons.children).forEach(button => {
-                if (button.dataset.correct === 'true' && !correct) {
-                     button.classList.add('correct-answer');
-                }
-                button.disabled = true;
+            startBtn.addEventListener('click', () => {
+                startSection.classList.add('hidden');
+                mainContent.classList.remove('hidden');
             });
 
-            if (quizData.length > currentQuestionIndex + 1) {
-                nextBtn.classList.remove('hidden');
-            } else {
-                showResults();
+
+            // --- Quiz Logic ---
+            const quizData = [
+                {
+                    question: "Qual é a primeira escolha de teste para o diagnóstico de HIV, Sífilis e Hepatites B e C na atenção primária?",
+                    answers: [
+                        { text: "VDRL, ANTI-HIV-1 + HIV-2, HBsAg e Anti-HCV", correct: false },
+                        { text: "Testes Rápidos (TR)", correct: true },
+                        { text: "FTA-ABS, ANTI-HIV-1 + HIV-2, HBsAg e Anti-HBc ", correct: false },
+                        { text: "Hemograma completo", correct: false }
+                    ],
+                    feedback: "O Teste Rápido (TR) é sempre a primeira opção pela agilidade no diagnóstico e início do tratamento."
+                },
+                {
+                    question: "Para um paciente sem histórico de sífilis com Teste Rápido reagente, qual o primeiro exame indicado para confirma o diagnóstico?",
+                    answers: [
+                        { text: "VDRL", correct: true },
+                        { text: "FTA-ABS", correct: false },
+                        { text: "IFI", correct: false },
+                        { text: "Um segundo Teste Rápido", correct: false }
+                    ],
+                    feedback: "O VDRL é utilizado para confirmar o diagnóstico de sífilis após um Teste Rápido reagente em pacientes sem histórico."
+                },
+                {
+                    question: "Qual exame é utilizado para monitorar a eficácia do tratamento da sífilis?",
+                    answers: [
+                        { text: "Teste Rápido", correct: false },
+                        { text: "Hemograma", correct: false },
+                        { text: "VDRL", correct: true },
+                        { text: "Quimioluminescência", correct: false }
+                    ],
+                    feedback: "O VDRL é o exame de escolha para acompanhar a resposta ao tratamento da sífilis, observando a queda dos títulos."
+                },
+                {
+                    question: "O exame ANTI-HIV-1 + HIV-2 é indicado principalmente quando:",
+                    answers: [
+                        { text: "O exame de carva viral está elevado.", correct: false },
+                        { text: "É a primeira consulta do paciente.", correct: false },
+                        { text: "O Teste Rápido não está disponível ou tem resultados divergentes.", correct: true },
+                        { text: "Para monitorar o tratamento.", correct: false }
+                    ],
+                    feedback: "O exame laboratorial para HIV é uma exceção, usado quando o TR não é viável ou seus resultados são inconclusivos."
+                },
+                 {
+                    question: "Qual o fluxo de testagem para sífilis recomendado para gestantes?",
+                    answers: [
+                        { text: "Apenas um VDRL no início do pré-natal.", correct: false },
+                        { text: "Teste Rápido no 1º e 3º trimestres.", correct: true },
+                        { text: "Apenas um Teste Rápido no parto.", correct: false },
+                        { text: "Não há necessidade de testagem específica.", correct: false }
+                    ],
+                    feedback: "Para gestantes, a recomendação é a realização do Teste Rápido no primeiro e terceiro trimestres do pré-natal."
+                },
+                {
+                    question: "Um paciente já tratado para sífilis suspeita de reinfecção. Qual exame é o mais indicado para diferenciar da cicatriz sorológica?",
+                    answers: [
+                        { text: "VDRL", correct: true },
+                        { text: "Teste Rápido", correct: false },
+                        { text: "FTA-ABS", correct: false },
+                        { text: "Quimioluminescencia", correct: false }
+                    ],
+                    feedback: "O VDRL é fundamental para avaliar uma possível reinfecção, pois o Teste Rápido (treponêmico) pode permanecer reagente por toda a vida."
+                },
+                {
+                    question: "Qual a principal vantagem do Teste Rápido?",
+                    answers: [
+                        { text: "É um teste único que detecta as 4 infecções.", correct: false },
+                        { text: "Pode ser feito em casa pelo paciente.", correct: false },
+                        { text: "Agilidade no resultado, permitindo ação imediata.", correct: true },
+                        { text: "É mais barato que o exame laboratorial.", correct: false }
+                    ],
+                    feedback: "A grande vantagem do TR é a rapidez do resultado, o que possibilita o aconselhamento e o início do tratamento na mesma consulta."
+                },
+                {
+                    question: "Qual exame laboratorial é usado para diagnosticar Hepatite B quando o TR não é possível?",
+                    answers: [
+                        { text: "Anti HBs", correct: false },
+                        { text: "HBsAg", correct: true },
+                        { text: "Anti-HCV", correct: false },
+                        { text: "ANTI-HBc", correct: false }
+                    ],
+                    feedback: "O HBsAg (Antígeno de superfície do vírus da Hepatite B) é o marcador sorológico utilizado para o diagnóstico da infecção."
+                },
+                {
+                    question: "E para diagnosticar Hepatite C em laboratório, qual o exame inicial a ser solicitado?",
+                    answers: [
+                        { text: "Anti-HCV", correct: true },
+                        { text: "HBsAg", correct: false },
+                        { text: "Quimioluminescencia", correct: false },
+                        { text: "Teste de Detecção de RNA do VHC", correct: false }
+                    ],
+                    feedback: "O Anti-HCV detecta os anticorpos contra o vírus da Hepatite C, sendo o exame de escolha para o diagnóstico laboratorial."
+                },
+                 {
+                    question: "Por que o teste treponêmico (TR) não é recomendado para diagnóstico em crianças expostas à sífilis com menos de 18 meses?",
+                    answers: [
+                        { text: "O teste é caro e por isso pouco custo-efetivo.", correct: false },
+                        { text: "É muito doloroso para a criança.", correct: false },
+                        { text: "Pela persistência de anticorpos maternos.", correct: true },
+                        { text: "O resultado demora muito.", correct: false }
+                    ],
+                    feedback: "Os anticorpos da mãe passam para o bebê e podem ser detectados pelo teste, gerando um resultado falso-positivo. Por isso, usa-se o VDRL."
+                },
+            ];
+
+            const questionContainer = document.getElementById('question-container');
+            const questionText = document.getElementById('question-text');
+            const answerButtons = document.getElementById('answer-buttons');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const feedbackText = document.getElementById('feedback-text');
+            const controlsContainer = document.getElementById('controls-container');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreText = document.getElementById('score-text');
+            const totalQuestionsText = document.getElementById('total-questions-text');
+            const restartBtn = document.getElementById('restart-btn');
+            const quizContent = document.getElementById('quiz-content');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            function startQuiz() {
+                currentQuestionIndex = 0;
+                score = 0;
+                quizContent.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+                showQuestion();
             }
-        }
-        
-        function showResults(){
-             quizContent.classList.add('hidden');
-             resultsContainer.classList.remove('hidden');
-             scoreText.innerText = score;
-             totalQuestionsText.innerText = quizData.length;
-        }
 
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            showQuestion();
-        });
-        
-        restartBtn.addEventListener('click', startQuiz);
+            function showQuestion() {
+                resetState();
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionText.innerText = `Pergunta ${currentQuestionIndex + 1}: ${currentQuestion.question}`;
+                
+                currentQuestion.answers.forEach(answer => {
+                    const button = document.createElement('button');
+                    button.innerText = answer.text;
+                    button.classList.add('w-full', 'p-3', 'rounded-lg', 'border-2', 'border-gray-300', 'hover:bg-gray-100', 'transition', 'duration-200');
+                    if (answer.correct) {
+                        button.dataset.correct = answer.correct;
+                    }
+                    button.addEventListener('click', selectAnswer);
+                    answerButtons.appendChild(button);
+                });
+            }
 
-        startQuiz();
+            function resetState() {
+                nextBtn.classList.add('hidden');
+                feedbackText.innerText = '';
+                feedbackContainer.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+                feedbackContainer.classList.add('p-0');
 
-        // --- Modal Logic ---
-        const openModalBtn = document.getElementById('openModalBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const courseModal = document.getElementById('courseModal');
 
-        openModalBtn.addEventListener('click', () => {
-            courseModal.classList.remove('hidden');
-        });
+                while (answerButtons.firstChild) {
+                    answerButtons.removeChild(answerButtons.firstChild);
+                }
+            }
 
-        closeModalBtn.addEventListener('click', () => {
-            courseModal.classList.add('hidden');
-        });
+            function selectAnswer(e) {
+                const selectedBtn = e.target;
+                const correct = selectedBtn.dataset.correct === 'true';
 
-        // Close modal if user clicks outside of the content
-        courseModal.addEventListener('click', (e) => {
-            if (e.target === courseModal) {
+                if (correct) {
+                    score++;
+                    selectedBtn.classList.add('correct-answer');
+                    feedbackText.innerText = "Resposta Correta! " + quizData[currentQuestionIndex].feedback;
+                    feedbackContainer.classList.add('p-3', 'rounded-lg', 'bg-green-100', 'text-green-800');
+                } else {
+                    selectedBtn.classList.add('wrong-answer');
+                    feedbackText.innerText = "Resposta Incorreta. " + quizData[currentQuestionIndex].feedback;
+                    feedbackContainer.classList.add('p-3', 'rounded-lg', 'bg-red-100', 'text-red-800');
+                }
+                
+                Array.from(answerButtons.children).forEach(button => {
+                    if (button.dataset.correct === 'true' && !correct) {
+                         button.classList.add('correct-answer');
+                    }
+                    button.disabled = true;
+                });
+
+                if (quizData.length > currentQuestionIndex + 1) {
+                    nextBtn.classList.remove('hidden');
+                } else {
+                    showResults();
+                }
+            }
+            
+            function showResults(){
+                 quizContent.classList.add('hidden');
+                 resultsContainer.classList.remove('hidden');
+                 scoreText.innerText = score;
+                 totalQuestionsText.innerText = quizData.length;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                currentQuestionIndex++;
+                showQuestion();
+            });
+            
+            restartBtn.addEventListener('click', startQuiz);
+
+            startQuiz();
+
+            // --- Modal Logic ---
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const courseModal = document.getElementById('courseModal');
+
+            openModalBtn.addEventListener('click', () => {
+                courseModal.classList.remove('hidden');
+            });
+
+            closeModalBtn.addEventListener('click', () => {
                 courseModal.classList.add('hidden');
-            }
+            });
+
+            // Close modal if user clicks outside of the content
+            courseModal.addEventListener('click', (e) => {
+                if (e.target === courseModal) {
+                    courseModal.classList.add('hidden');
+                }
+            });
         });
     </script>
 
