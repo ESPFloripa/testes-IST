@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,19 @@
         }
         .gradient-bg {
             background: linear-gradient(135deg, #005c97, #363795);
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://i.imgur.com/zW0P6ET.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
         }
         .correct-answer {
             background-color: #28a745 !important;
@@ -30,13 +43,28 @@
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Header -->
-    <header class="gradient-bg text-white shadow-lg">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+    <header class="gradient-bg text-white shadow-lg relative overflow-hidden hero-bg">
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold">Como escolher o teste certo para HIV, Sífilis e Hepatites B e C</h1>
             <p class="mt-2 text-xl text-gray-200">Um guia prático para os profissionais de saúde da Atenção Primária</p>
-            <button id="openModalBtn" class="mt-4 flex items-center justify-center text-lg bg-white/20 backdrop-blur-sm py-2 px-4 rounded-full max-w-xs mx-auto hover:bg-white/30 transition-colors">
-                <i class="fas fa-graduation-cap mr-2"></i>Curso Livre
-            </button>
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+                <button id="openModalBtn" class="font-semibold text-lg bg-white/20 backdrop-blur-sm py-3 px-6 rounded-full hover:bg-white/30 transition-colors flex items-center justify-center">
+                    <i class="fas fa-info-circle mr-2"></i>Curso livre - Instruções
+                </button>
+                <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" class="font-semibold text-lg bg-sky-500 py-3 px-6 rounded-full hover:bg-sky-600 transition-colors shadow-lg transform hover:scale-105 flex items-center justify-center">
+                    <i class="fas fa-edit mr-2"></i>Curso livre - Inscrição
+                </a>
+            </div>
+             <!-- Navigation Menu -->
+            <nav class="mt-8 border-t border-white/20 pt-4">
+                <ul class="flex flex-wrap justify-center gap-x-6 sm:gap-x-8 gap-y-2">
+                    <li><a href="#guia-sifilis" class="text-white/80 hover:text-white font-medium transition-colors">Sífilis</a></li>
+                    <li><a href="#guia-hiv" class="text-white/80 hover:text-white font-medium transition-colors">HIV</a></li>
+                    <li><a href="#guia-hepatites" class="text-white/80 hover:text-white font-medium transition-colors">Hepatites</a></li>
+                    <li><a href="#documento" class="text-white/80 hover:text-white font-medium transition-colors">Documento</a></li>
+                    <li><a href="#quiz-container" class="text-white/80 hover:text-white font-medium transition-colors">Quiz</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -75,7 +103,7 @@
         <div class="space-y-8">
             
             <!-- SÍFILIS -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div id="guia-sifilis" class="bg-white rounded-xl shadow-lg overflow-hidden scroll-mt-20">
                 <div class="p-6 md:p-8">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">Guia de Testagem para Sífilis</h3>
                     <div class="grid md:grid-cols-2 gap-6">
@@ -102,7 +130,7 @@
             <!-- HIV e Hepatites -->
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- HIV -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div id="guia-hiv" class="bg-white rounded-xl shadow-lg overflow-hidden scroll-mt-20">
                     <div class="p-6 md:p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">Guia de Testagem para HIV</h3>
                         <div class="space-y-4">
@@ -119,7 +147,7 @@
                 </div>
 
                 <!-- Hepatites B e C -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div id="guia-hepatites" class="bg-white rounded-xl shadow-lg overflow-hidden scroll-mt-20">
                     <div class="p-6 md:p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">Guia de Testagem para Hepatites B e C</h3>
                          <div class="space-y-4">
@@ -138,7 +166,7 @@
         </div>
 
         <!-- Document Section -->
-        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mt-8">
+        <div id="documento" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mt-8 scroll-mt-20">
              <div class="space-y-3">
                 <h3 class="text-2xl font-bold text-gray-900 mb-6">Documento de Referência Completo</h3>
                 <div class="w-full h-96 md:h-[600px] rounded-lg overflow-hidden shadow-md border">
@@ -157,7 +185,7 @@
         </div>
 
         <!-- Interactive Quiz Section -->
-        <div id="quiz-container" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mt-8">
+        <div id="quiz-container" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mt-8 scroll-mt-20">
             <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">Teste seu Conhecimento</h2>
             <div id="quiz-content" class="max-w-2xl mx-auto">
                 <div id="question-container" class="mb-4">
@@ -183,16 +211,13 @@
         <!-- Curso Livre Section -->
         <section id="curso-livre" class="bg-teal-50 border-t-4 border-teal-500 rounded-xl shadow-lg p-6 md:p-8 mt-8 text-center">
             <h2 class="text-2xl font-bold text-teal-800 mb-4 flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
-                Participe do Curso Livre
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                Teste de Aproveitamento
             </h2>
-            <p class="text-slate-600 mb-8 max-w-2xl mx-auto">Aprofunde seu conhecimento e obtenha a certificação. Siga os passos abaixo para se inscrever e realizar o teste de aproveitamento.</p>
+            <p class="text-slate-600 mb-8 max-w-2xl mx-auto">Aprofunde seu conhecimento e obtenha a certificação. Clique no botão abaixo para realizar o teste de aproveitamento.</p>
             <div class="flex flex-wrap justify-center gap-6">
-                <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block">
-                    Inscrição para o curso livre
-                </a>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLScAS-ZoMBXvQ5WzfYwUtgDNTyDCa_A_V7C1rhHiGAOH4fhEFA/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block">
-                    Teste de aproveitamento
+                    Realize o teste de aproveitamento
                 </a>
             </div>
         </section>
@@ -217,8 +242,8 @@
             <div class="text-slate-700">
                 <ol class="list-decimal list-inside space-y-2">
                     <li>Este Curso Livre é voltado para profissionais de saúde de nível superior e será certificado com a carga horária de 2 horas/aula.</li>
-                    <li>Você deve clicar no botão disponível no fim desta página (ou <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline font-semibold">aqui</a>) e preencher todos os campos para se inscrever no curso no mês corrente.</li>
-                    <li>Após a inscrição realizada, você tem até o último dia do mês para responder o teste de aproveitamento disponibilizado no botão no fim da página (não confundir com o Quiz!).</li>
+                    <li>Você deve clicar no botão ao lado (ou <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline font-semibold">aqui</a>) e preencher todos os campos para se inscrever no curso no mês corrente.</li>
+                    <li>Após a inscrição realizada, você deve explorar o conteúdo e tem até o último dia do mês para responder o teste de aproveitamento disponibilizado no botão no fim da página (não confundir com o Quiz!).</li>
                     <li>Para responder o teste de aproveitamento você deve estar logado em uma conta Google, coloque o nome completo, CPF e e-mail conforme você colocou no link de inscrição.</li>
                     <li>A nota de corte para aprovação é de 80%.</li>
                     <li>O teste de aproveitamento só permite uma resposta por participante, caso você não seja aprovado poderá repetir o curso no mês seguinte.</li>
@@ -456,5 +481,4 @@
 
 </body>
 </html>
-
 
